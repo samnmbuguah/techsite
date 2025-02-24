@@ -44,3 +44,4 @@ next-env.d.ts
 production/
 *.zip
 *.tar.gz
+package-lock.json
