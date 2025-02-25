@@ -1,7 +1,27 @@
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
+import ServiceContent from './ServiceContent'
 
-const services = {
+type ServiceFeature = {
+  title: string;
+  description: string;
+}
+
+type Service = {
+  title: string;
+  description: string;
+  content: string;
+  features: ServiceFeature[];
+}
+
+type ValidServiceSlug =
+  | 'business-systems'
+  | 'crm'
+  | 'erp'
+  | 'web-development'
+  | 'ai-integration'
+  | 'mobile-apps'
+  | 'custom-software';
+
+const services: Record<ValidServiceSlug, Service> = {
   'business-systems': {
     title: 'Business Management Systems',
     description: 'Comprehensive business management solutions including POS, CRM, and ERP systems tailored to your needs.',
@@ -237,89 +257,17 @@ const services = {
 
 type Props = {
   params: Promise<{
-    slug: string
+    slug: ValidServiceSlug
   }>
 }
 
 export default async function ServicePage({ params }: Props) {
-  const { slug } = await params
-  const service = services[slug as keyof typeof services]
+  const resolvedParams = await params;
+  const service = services[resolvedParams.slug];
 
   if (!service) {
-    notFound()
+    return null;
   }
 
-  return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-8">
-          <Link
-            href="/services"
-            className="inline-flex items-center text-sm font-semibold text-gray-900 hover:text-primary"
-          >
-            <svg 
-              className="mr-2 h-5 w-5" 
-              fill="none" 
-              viewBox="0 0 24 24" 
-              strokeWidth="1.5" 
-              stroke="currentColor"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-              />
-            </svg>
-            Back to Services
-          </Link>
-        </div>
-
-        <div className="mx-auto max-w-2xl lg:text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {service.title}
-          </h1>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            {service.description}
-          </p>
-        </div>
-
-        <div className="mx-auto mt-16 max-w-2xl lg:max-w-4xl">
-          <div className="prose prose-lg prose-primary mx-auto">
-            {service.content.split('\n').map((paragraph, index) => (
-              <p key={index} className="mt-6 text-lg leading-8 text-gray-600">
-                {paragraph.trim()}
-              </p>
-            ))}
-          </div>
-
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Key Features</h2>
-            <dl className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
-              {service.features.map((feature) => (
-                <div key={feature.title} className="border-l-4 border-primary pl-6">
-                  <dt className="text-lg font-semibold text-gray-900">{feature.title}</dt>
-                  <dd className="mt-2 text-base text-gray-600">{feature.description}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="mt-16 flex justify-center space-x-4">
-            <Link
-              href="/contact"
-              className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            >
-              Contact us about {service.title}
-            </Link>
-            <Link
-              href="/services"
-              className="rounded-md bg-gray-100 px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-100"
-            >
-              View All Services
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+  return <ServiceContent service={service} />;
 } 
