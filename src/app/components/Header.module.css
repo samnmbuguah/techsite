@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Rondana';
+  src: url('/fonts/Rondana%20Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.menuItem {
+  font-family: 'Rondana', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 900;
+} 
