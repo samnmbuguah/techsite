@@ -1,14 +1,29 @@
-import { motion } from 'framer-motion'
+'use client';
 
-export const FadeIn = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay }}
-  >
-    {children}
-  </motion.div>
-)
+import { motion } from 'framer-motion'
+import { ReactNode } from 'react';
+
+interface AnimationProps {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}
+
+export function FadeIn({ children, delay = 0 }: AnimationProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.5,
+        delay: delay,
+        ease: [0.21, 0.47, 0.32, 0.98],
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 export const FadeInStagger = ({ children }: { children: React.ReactNode }) => (
   <motion.div
@@ -39,22 +54,45 @@ export const FadeInStaggerItem = ({ children }: { children: React.ReactNode }) =
   </motion.div>
 )
 
-export const ScaleIn = ({ children }: { children: React.ReactNode }) => (
-  <motion.div
-    initial={{ scale: 0.8, opacity: 0 }}
-    animate={{ scale: 1, opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {children}
-  </motion.div>
-)
+export function CardHover({ children }: AnimationProps) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{
+        duration: 0.2,
+        ease: [0.21, 0.47, 0.32, 0.98],
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
-export const SlideIn = ({ children, direction = 'left' }: { children: React.ReactNode; direction?: 'left' | 'right' }) => (
-  <motion.div
-    initial={{ x: direction === 'left' ? -100 : 100, opacity: 0 }}
-    animate={{ x: 0, opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {children}
-  </motion.div>
-) 
+export function SlideIn({ children, delay = 0 }: AnimationProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{
+        duration: 0.5,
+        delay: delay,
+        ease: [0.21, 0.47, 0.32, 0.98],
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+export function ScaleIn({ children, className = '', delay = 0 }: AnimationProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+} 
