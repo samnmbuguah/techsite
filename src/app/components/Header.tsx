@@ -29,8 +29,8 @@ export default function Header() {
       <Disclosure as="nav" className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-md">
         {({ open }) => (
           <>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-              <div className="flex h-24 items-center">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+              <div className="flex h-16 items-center">
                 {/* Logo */}
                 <Link href="/" className="flex items-center">
                   <div className="relative w-[250px] h-[150px] transition-transform duration-200 hover:scale-105">
@@ -52,8 +52,8 @@ export default function Header() {
                         key={item.name}
                         href={item.href}
                         className={`px-3 py-2 text-lg font-medium transition-all duration-300 ${styles.menuItem} ${isCurrentPage(item.href)
-                            ? 'text-primary scale-105'
-                            : 'text-gray-900 hover:text-primary hover:scale-105'
+                          ? 'text-primary scale-105'
+                          : 'text-gray-900 hover:text-primary hover:scale-105'
                           }`}
                       >
                         {item.name}
@@ -85,8 +85,8 @@ export default function Header() {
                     as={Link}
                     href={item.href}
                     className={`block px-3 py-2 text-lg font-medium transition-all duration-300 ${styles.menuItem} ${isCurrentPage(item.href)
-                        ? 'text-primary translate-x-2'
-                        : 'text-gray-900 hover:text-primary hover:translate-x-2'
+                      ? 'text-primary translate-x-2'
+                      : 'text-gray-900 hover:text-primary hover:translate-x-2'
                       }`}
                   >
                     {item.name}
