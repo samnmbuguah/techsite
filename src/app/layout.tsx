@@ -52,7 +52,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-white text-gray-900`} suppressHydrationWarning>
         <GoogleAnalytics />
         <Header />
-        <main className="min-h-screen pt-24">
+        <main className="min-h-screen pt-20">
           {children}
         </main>
         <Footer />
