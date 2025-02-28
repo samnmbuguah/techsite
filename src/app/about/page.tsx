@@ -71,6 +71,32 @@ export default function About() {
         </div>
       </div>
 
+      {/* Vision & Mission Section */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <FadeIn>
+            <div className="rounded-2xl bg-primary/5 p-8 h-full">
+              <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl mb-4">
+                Our Vision
+              </h2>
+              <p className="text-lg leading-8 text-gray-600">
+                To redefine problem-solving through innovation, pioneering smart solutions that transform industries and empower businesses to thrive in the digital era.
+              </p>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="rounded-2xl bg-primary/5 p-8 h-full">
+              <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl mb-4">
+                Our Mission
+              </h2>
+              <p className="text-lg leading-8 text-gray-600">
+                At AkiliNova, we apply innovation in every solution we create. We explore uncharted frontiers, harnessing cutting-edge technology to deliver smart, scalable, and impactful solutions. Our goal is to bring change by ensuring innovation flow from ideation to execution, creating sustainable value for businesses and communities.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </div>
+
       {/* Stats section */}
       <div className="mx-auto mt-8 max-w-7xl px-6 lg:px-8">
         <FadeInStagger>
