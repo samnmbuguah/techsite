@@ -160,7 +160,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   disabled={status === 'submitting'}
-                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50"
+                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50 px-4 py-3"
                   placeholder="Your full name"
                 />
               </div>
@@ -179,7 +179,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   disabled={status === 'submitting'}
-                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50"
+                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50 px-4 py-3"
                   placeholder="Your email address"
                 />
               </div>
@@ -197,7 +197,7 @@ export default function Contact() {
                   value={formData.company}
                   onChange={handleChange}
                   disabled={status === 'submitting'}
-                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50"
+                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50 px-4 py-3"
                   placeholder="Your company name (optional)"
                 />
               </div>
@@ -216,7 +216,7 @@ export default function Contact() {
                   required
                   disabled={status === 'submitting'}
                   rows={4}
-                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50"
+                  className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:border-primary focus:ring-primary text-gray-900 disabled:opacity-50 px-4 py-3"
                   placeholder="Type your message here..."
                 />
               </div>
