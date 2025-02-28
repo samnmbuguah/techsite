@@ -1,6 +1,16 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import nodemailer from 'nodemailer'
+import type SMTPTransport from 'nodemailer/lib/smtp-transport'
+import 'dotenv/config'
+
+// Validate environment variables
+const requiredEnvVars = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASSWORD', 'SMTP_FROM'];
+for (const envVar of requiredEnvVars) {
+  if (!process.env[envVar]) {
+    throw new Error(`Missing required environment variable: ${envVar}`);
+  }
+}
 
 // Create a transporter using SMTP
 const transporter = nodemailer.createTransport({
@@ -11,37 +21,56 @@ const transporter = nodemailer.createTransport({
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD,
   },
-})
+  tls: {
+    rejectUnauthorized: true
+  },
+  debug: false
+} as SMTPTransport.Options)
+
+// Verify connection configuration
+transporter.verify(function(error) {
+  if (error) {
+    console.error('SMTP Connection Error:', error);
+  }
+});
 
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json()
     const { firstName, lastName, email, phoneNumber, message } = data
 
-    // Send email
+    // Validate required fields
+    if (!firstName || !lastName || !email || !message) {
+      return NextResponse.json(
+        { message: 'Missing required fields' },
+        { status: 400 }
+      )
+    }
+
+    // Send notification email
     await transporter.sendMail({
-      from: process.env.SMTP_FROM || 'website@akilinova.com',
-      to: 'info@akilinova.com',
+      from: process.env.SMTP_FROM,
+      to: process.env.SMTP_USER,
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
       text: `
 Name: ${firstName} ${lastName}
 Email: ${email}
-Phone: ${phoneNumber}
+Phone: ${phoneNumber || 'Not provided'}
 Message: ${message}
       `,
       html: `
 <h2>New Contact Form Submission</h2>
 <p><strong>Name:</strong> ${firstName} ${lastName}</p>
 <p><strong>Email:</strong> ${email}</p>
-<p><strong>Phone:</strong> ${phoneNumber}</p>
+<p><strong>Phone:</strong> ${phoneNumber || 'Not provided'}</p>
 <p><strong>Message:</strong></p>
-<p>${message}</p>
+<p>${message.replace(/\n/g, '<br>')}</p>
       `,
     })
 
     // Send auto-reply to the user
     await transporter.sendMail({
-      from: process.env.SMTP_FROM || 'info@akilinova.com',
+      from: process.env.SMTP_FROM,
       to: email,
       subject: 'Thank you for contacting Akilinova',
       text: `
